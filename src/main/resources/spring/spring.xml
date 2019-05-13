@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
+	<!-- 引入属性文件 -->
+	<context:property-placeholder location="classpath:properties/dataSource.properties" />
+	<!-- 导入数据源配置 -->
+	<import resource="spring-dao.xml" /> 
+	<!-- 扫描包加载Service实现类 -->
+	<context:component-scan base-package="com.szft.hsq.tea.service.impl*"></context:component-scan>
+	<!-- 扫描工具类 -->
+	<context:component-scan base-package="com.szft.hsq.tea.utils" />
+	<!-- 隐式地向 Spring 容器注册(注解) -->
+	<context:annotation-config />
+	<!-- 定时任务 -->
+	<!-- <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>  
+  	<task:executor  id="myExecutor"  pool-size="5"/>  
+ 	<task:scheduler id="myScheduler" pool-size="10"/>  -->
+</beans>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"  
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd">
+	<!--配置数据源 -->
+    <bean id="teaDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        	<property name="driverClassName"><value>${tea.jdbc.driver}</value></property>
+	        <property name="url"><value>${tea.jdbc.url}</value></property>      
+	        <property name="username"><value>${tea.jdbc.username}</value></property>
+	        <property name="password"><value>${tea.jdbc.password}</value></property>
+	        <property name="initialSize"><value>${tea.jdbc.initialSize}</value></property>
+	        <property name="maxActive"><value>${tea.jdbc.maxActive}</value></property>
+	        <property name="maxIdle"><value>${tea.jdbc.maxIdle}</value></property>
+	        <property name="minIdle"><value>${tea.jdbc.minIdle}</value></property>
+    </bean> 
+	<!-- 配置sqlsessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!-- mybatis配置文件 -->
+		<property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"></property>
+		<!-- 数据源 -->
+		<property name="dataSource" ref="teaDataSource"/>
+		<!-- 扫描mapper.xml -->
+		<property name="mapperLocations" value="classpath:mapper/*/*.xml" />
+	</bean>
+	<!-- 配置扫描包，加载mapper代理对象 -->
+	<bean id="mapperScanner" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.szft.hsq.tea.dao.*"></property>
+	</bean>
+ 	
+</beans>
