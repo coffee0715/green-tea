@@ -2,6 +2,8 @@ package com.szft.hsq.tea.controller.customer;
 
 public class QuickWInNameList {
 	private String name ;
+	
+	private String desc;
 
 	public String getName() {
 		return name;
